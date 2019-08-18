@@ -1,1 +1,12 @@
-<svg id="visualisation" width="1000" height="500"></svg>
+    <div>
+    <svg id="visualisation" width="100%" viewBox="0 0 800 500"></svg>
+</div>
+<div>
+    <label for="rich">Include Next Richest Estimate</label>
+    <input id="rich" type="checkbox" [checked]="includeRich"
+    (change)="update('includeRich', $event.target.checked)">
+
+    <label for="richest">Include Richest 50</label>
+    <input id="rich" type="checkbox" [checked]="includeRichest"
+    (change)="update('includeRichest', $event.target.checked)">
+</div>
