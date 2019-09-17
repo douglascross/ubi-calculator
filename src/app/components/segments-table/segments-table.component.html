@@ -1,0 +1,20 @@
+{{this.calculatedSegments.length}}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Total</th>
+    <th>Taxed</th>
+    <th>Rate Reached</th>
+    <th>Actual Percent Taxed</th>
+  </tr>
+  <tr *ngFor="let segment of this.calculatedSegments">
+    <td>{{segment.name}}</td>
+    <td>{{segment.y / 1000000 | number : 0}} M</td>
+    <td>{{segment.total / 1000000000 | number : 0}} Billion</td>
+    <td>{{segment.taxed / 1000000 | number : 0}} Million</td>
+    <td>{{segment.rateReached}}</td>
+    <td>{{segment.rateFinal ? segment.rateFinal + '%' : ''}}</td>
+    <td>{{segment.perWeek | currency}}</td>
+  </tr>
+</table>

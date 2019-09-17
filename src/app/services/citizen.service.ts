@@ -41,6 +41,8 @@ export class CitizenService {
     1355.7
   ];
 
+  population = 24966530;
+
   // https://www.abs.gov.au/ausstats/Subscriber.nsf/log?openagent&65230do002_201718.xlsx&6523.0&Data%20Cubes&F32A15932FBB35B6CA25843400189D9E&0&2017-18&12.07.2019&Latest
   // min, max, households
   // [0][0] is estimated to be -50,000
@@ -329,6 +331,8 @@ export class CitizenService {
 
   citizens = [];
 
+  segments = [];
+
   constructor() {
     // calc cumulative
     const a = this.ageGenderStats;
@@ -345,6 +349,11 @@ export class CitizenService {
       rp.length
     ];
 
+    let rpTotal = 0;
+    rp.forEach(x => {
+      rpTotal += x[1] as number * 1000000000;
+    });
+
     const richPeopleSegment = [
       b[b.length - 1][1],
       richestPeopleSegment[0],
@@ -357,18 +366,52 @@ export class CitizenService {
     // calc cumulative
     b.forEach((x, i) => {
       x[3] = x[2] + (i ? (b[i - 1][3] as any) : 0);
+    });
+
+    const totalPopulation = this.population;
+    const totalHouseholds = b[b.length - 1][3];
+    const peoplePerHouseHold = totalPopulation / totalHouseholds;
+
+    // calc per person
+    b.forEach((x, i) => {
       if (i < b.length - 1) {
         // fix wealth for individuals
-        x[4] = Math.round(x[0] / 2.7);
-        x[5] = i !== b.length - 2 ? Math.round(x[1] / 2.7) : x[1];
+        x[4] = Math.round(x[0] / peoplePerHouseHold);
+        x[5] = i !== b.length - 2 ? Math.round(x[1] / peoplePerHouseHold) : x[1];
         // fix population for household size
-        x[6] = Math.round(x[3] * 2.7);
+        x[6] = Math.round(x[3] * peoplePerHouseHold);
       } else {
         x[4] = x[0];
         x[5] = x[1];
         x[6] = b[i - 1][6] + x[2];
       }
     });
+
+    const segments = [];
+    b.forEach((x, i) => {
+      const seg = {
+        householdMin: x[0],
+        householdMax: x[1],
+        households: x[2],
+        householdStart: x[3],
+        householdGradient: (x[1] - x[0]) / x[2],
+        personMin: x[4],
+        personMax: x[5],
+        personStart: x[6],
+        people: Math.round(x[2] * peoplePerHouseHold),
+        total: (x[0] + x[1]) / 2 * x[2]
+      };
+      // Need to presume there is a sharp logarithmic curve on this.
+      if (i === 31) {
+        const lastGradient = segments[i - 1].householdGradient;
+        const householdMaxEst = (lastGradient * 5) * x[2] + x[0];
+        seg.total = Math.round((x[0] + householdMaxEst) / 2 * x[2]);
+      }
+      segments.push(seg);
+    });
+    segments[segments.length - 1].people = 50;
+    segments[segments.length - 1].total = rpTotal;
+    this.segments = segments;
   }
 
   getRandomGenderAndAge() {
