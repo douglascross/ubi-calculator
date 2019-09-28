@@ -1,0 +1,33 @@
+<div class="set">
+  <h3>Battlers</h3>
+  <em>80% of Australians</em>
+  <div class="graphic">
+    <div class="badges">
+      <badge [size]="household1"></badge>
+      <badge [size]="wealth1" icon="cash"></badge>
+    </div>
+    <wealth-segment-chart></wealth-segment-chart>
+  </div>
+</div>
+<div class="set">
+  <h3>Lucky Country</h3>
+  <em>19% of Australians</em>
+  <div class="graphic">
+    <div class="badges">
+        <badge [size]="household2"></badge>
+        <badge [size]="wealth2" icon="cash"></badge>
+    </div>
+    <wealth-segment-chart [chunk]="1"></wealth-segment-chart>
+  </div>
+</div>
+<div class="set">
+  <h3>Wealth Hoarders</h3>
+  <em>1% of Australians</em>
+  <div class="graphic">
+    <div class="badges">
+        <badge [size]="household3"></badge>
+        <badge [size]="wealth3" icon="cash"></badge>
+    </div>
+    <wealth-segment-chart [chunk]="0.1"></wealth-segment-chart>
+  </div>
+</div>

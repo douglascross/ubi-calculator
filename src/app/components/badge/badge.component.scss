@@ -1,0 +1,17 @@
+:host {
+  display:block;
+  box-sizing:border-box;
+  width:4rem;
+  height:4rem;
+  padding:1rem;
+  border-radius:1000px;
+  background:grey;
+  color:lightgrey;
+  text-align:center;
+  overflow: hidden;
+  margin: 2px;
+}
+
+svg {
+  height:100%;
+}

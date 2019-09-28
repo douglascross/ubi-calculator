@@ -17,26 +17,50 @@ export class WealthSegmentsService {
     this.segments = new BehaviorSubject([]);
     this.segments.subscribe(x => this.segs = x);
     this.processWealthSegmentsJson();
-    this.addNaiveQuadratic();
+    this.addSimpleQuadratic(3);
+    this.addSimpleExponential();
+    // ^2 = 485.427-499.285
+    // ^3 = 478.303-498.928
+    // ^5 = 464.375-498.215
+    // Math.E = 373.07-492.897
   }
 
   getY(x) {
-    const segment = this.segs.find(seg => seg.x1 < x && x <= seg.x2);
-    return segment.naiveQuadratic(x);
+    const segment = this.segs.find(seg => seg.x1 <= x && x <= seg.x2);
+    const index = this.segs.indexOf(segment);
+    if (!segment) {
+      return 0;
+    }
+    return index >= 32 ? segment.simpleExponential(x) : segment.simpleQuadratic(x);
   }
 
-  private addNaiveQuadratic() {
+  private addSimpleQuadratic(power = 3) {
     this.segments.subscribe(segments => {
-      segments.forEach((segment, index) => {
-        const power = index === segments.length - 2 ? 3 : 2;
+      segments.forEach(segment => {
         const startX = segment.cumulativeHouseholds - segment.households;
         const c = segment.householdMin;
         const y = segment.householdMax - c;
         const xsr2 = Math.pow(segment.households, power);
         const a = y / xsr2;
-        segment.naiveQuadratic = household => {
+        segment.simpleQuadratic = household => {
           const x = household - startX;
           return a * Math.pow(x, power) + c;
+        };
+      });
+    });
+  }
+
+  private addSimpleExponential(exponent = Math.E) {
+    this.segments.subscribe(segments => {
+      segments.forEach(segment => {
+        const startX = segment.cumulativeHouseholds - segment.households;
+        const c = segment.householdMin;
+        const y = segment.householdMax - c;
+        const logy = Math.log(y) / Math.log(exponent);
+        const a = logy / segment.households;
+        segment.simpleExponential = household => {
+          const x = household - startX;
+          return Math.pow(Math.E, a * x) + c;
         };
       });
     });
