@@ -87,7 +87,6 @@ export class WealthSegmentsChart {
         const y1 = r.y * -1 * r.rateFinal / 100;
         const x2 = r.x2;
         const y2 = r.y * -1 * r.rateFinal / 100;
-        console.log(r);
         taxPolyData.push([
           { x: x1, y: y1 },
           { x: x2, y: y2 },

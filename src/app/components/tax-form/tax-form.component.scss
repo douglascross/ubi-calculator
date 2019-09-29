@@ -1,0 +1,27 @@
+fieldset {
+  border:1px solid lightgrey;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+
+  legend {
+    display: block;
+    float: left;
+    clear:both;
+    font-size: 1.17em;
+    font-weight: bold;
+    padding: 0;
+  }
+  
+  >div {
+    clear: both;
+    float: left;
+    margin-top: 1rem;
+  }
+  
+  >dl {
+    clear: both;
+    float: left;
+    margin-top: 1rem;
+  }
+}

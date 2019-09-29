@@ -4,8 +4,9 @@
 
 .set {
   padding: 0.5rem;
-  border:1px solid grey;
+  border:1px solid lightgrey;
   background-color: white;
+  margin: 0.5rem;
 }
 
 h3 {
@@ -17,7 +18,7 @@ h3 {
 }
 
 .badges {
-  padding: 1rem;
+  padding: 1rem 0.25rem;
   display: flex;
   position: absolute;
   left:0;

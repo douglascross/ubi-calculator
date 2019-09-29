@@ -1,42 +1,72 @@
 <fieldset>
+  <legend>Data</legend>
+
+  <div>
+    <label for="estimationModel">Estimation model</label>
+    <select id="estimationModel"
+        [(ngModel)]="model.estimationModel"
+        (ngModelChange)="change()">
+      <option [ngValue]="'quadratic'">Quadratic [ax^2 + c] (Optimistic)</option>
+      <option [ngValue]="'cubic'">Cubic [ax^3 + c]</option>
+      <option [ngValue]="'polynomial4'">Polynomial 4 [ax^4 + c]</option>
+      <option [ngValue]="'polynomial5'">Polynomial 5 [ax^5 + c]</option>
+      <option [ngValue]="'exponential'">Exponential [e^(ax) + c] (Pessimistic)</option>
+    </select>
+  </div>
+
+  <dl>
+    <dt>Households</dt><dd>{{ubi.households / 1000000 | number : '1.0-0'}} Million</dd>
+    <dt>Adults</dt><dd>{{ubi.adults / 1000000 | number : '1.0-0'}} Million</dd>
+    <dt>Children</dt><dd>{{ubi.children / 1000000 | number : '1.0-0'}} Million</dd>
+    <dt>Total Wealth</dt><dd>{{ubi.totalWealth / 1000000000000 | number : '1.0-0'}} Trillion</dd>
+    <dt>Average Household Wealth</dt><dd>{{ubi.averageWealth / 1000 | number : '1.0-0'}} Thousand</dd>
+    <dt>Median Household Wealth</dt><dd>{{ubi.medianWealth / 1000 | number : '1.0-0'}} Thousand</dd>
+  </dl>
+
+  </fieldset>
+<fieldset>
 <legend>Wealth tax</legend>
 
-<label for="taxBracketStart">Not taxed</label>
-<select id="taxBracketStart"
-    [(ngModel)]="model.taxBracketStart"
-    (ngModelChange)="change()">
-  <option [ngValue]="1000000">1,000,000</option>
-  <option [ngValue]="2000000">2,000,000</option>
-  <option [ngValue]="5000000">5,000,000</option>
-  <option [ngValue]="10000000">10,000,000</option>
-  <option [ngValue]="100000000">100,000,000</option>
-</select>
+<div>
+  <label for="taxBracketStart">Not taxed</label>
+  <select id="taxBracketStart"
+      [(ngModel)]="model.taxBracketStart"
+      (ngModelChange)="change()">
+    <option [ngValue]="1000000">1,000,000</option>
+    <option [ngValue]="2000000">2,000,000</option>
+    <option [ngValue]="5000000">5,000,000</option>
+    <option [ngValue]="10000000">10,000,000</option>
+  </select>
+</div>
 
-<label for="taxBracketStep">Increase for each</label>
-<select id="taxBracketStep"
-    [(ngModel)]="model.taxBracketStep"
-    (ngModelChange)="change()">
-  <option [ngValue]="100000">100,000</option>
-  <option [ngValue]="1000000">1,000,000</option>
-  <option [ngValue]="2000000">2,000,000</option>
-  <option [ngValue]="5000000">5,000,000</option>
-  <option [ngValue]="10000000">10,000,000</option>
-  <option [ngValue]="100000000">100,000,000</option>
-</select>
+<div>
+  <label for="taxBracketStep">Increase for each</label>
+  <select id="taxBracketStep"
+      [(ngModel)]="model.taxBracketStep"
+      (ngModelChange)="change()">
+    <option [ngValue]="100000">100,000</option>
+    <option [ngValue]="1000000">1,000,000</option>
+    <option [ngValue]="2000000">2,000,000</option>
+    <option [ngValue]="5000000">5,000,000</option>
+  </select>
+</div>
 
-<label for="taxPercentStep">Increase percent</label>
-<select id="taxPercentStep"
-    [(ngModel)]="model.taxPercentStep"
-    (ngModelChange)="change()">
-  <option [ngValue]="1">1</option>
-  <option [ngValue]="2">2</option>
-  <option [ngValue]="3">3</option>
-  <option [ngValue]="4">4</option>
-  <option [ngValue]="5">5</option>
-</select>
+<div>
+  <label for="taxPercentStep">Increase percent</label>
+  <select id="taxPercentStep"
+      [(ngModel)]="model.taxPercentStep"
+      (ngModelChange)="change()">
+    <option [ngValue]="1">1</option>
+    <option [ngValue]="2">2</option>
+    <option [ngValue]="3">3</option>
+    <option [ngValue]="4">4</option>
+    <option [ngValue]="5">5</option>
+  </select>
+</div>
 
 <dl>
   <dt>Revenue Raised</dt><dd>{{ubi.totalTax / 1000000000 | number : '1.0-0'}} Billion</dd>
+  <dt>Percent Taxed</dt><dd>{{ubi.totalTax / ubi.totalWealth * 100 | number : '1.0-1'}}%</dd>
 </dl>
 
 </fieldset>
@@ -44,32 +74,36 @@
 <fieldset>
 <legend>Universal Basic Income</legend>
 
-<label for="amountPerAdult">Per Week Per Adult</label>
-<select id="amountPerAdult"
-    [(ngModel)]="model.amountPerAdult"
-    (ngModelChange)="change()">
-  <option [ngValue]="0">0</option>
-  <option [ngValue]="50">50</option>
-  <option [ngValue]="75">75</option>
-  <option [ngValue]="100">100</option>
-  <option [ngValue]="150">150</option>
-  <option [ngValue]="200">200</option>
-  <option [ngValue]="250">250</option>
-  <option [ngValue]="300">300</option>
-  <option [ngValue]="400">400</option>
-</select>
+<div>
+  <label for="amountPerAdult">Per Week Per Adult</label>
+  <select id="amountPerAdult"
+      [(ngModel)]="model.amountPerAdult"
+      (ngModelChange)="change()">
+    <option [ngValue]="0">0</option>
+    <option [ngValue]="50">50</option>
+    <option [ngValue]="75">75</option>
+    <option [ngValue]="100">100</option>
+    <option [ngValue]="150">150</option>
+    <option [ngValue]="200">200</option>
+    <option [ngValue]="250">250</option>
+    <option [ngValue]="300">300</option>
+    <option [ngValue]="400">400</option>
+  </select>
+</div>
 
-<label for="amountPerChild">Per Week Per Child</label>
-<select id="amountPerChild"
-    [(ngModel)]="model.amountPerChild"
-    (ngModelChange)="change()">
-  <option [ngValue]="0">0</option>
-  <option [ngValue]="50">50</option>
-  <option [ngValue]="75">75</option>
-  <option [ngValue]="100">100</option>
-  <option [ngValue]="150">150</option>
-  <option [ngValue]="200">200</option>
-</select>
+<div>
+  <label for="amountPerChild">Per Week Per Child</label>
+  <select id="amountPerChild"
+      [(ngModel)]="model.amountPerChild"
+      (ngModelChange)="change()">
+    <option [ngValue]="0">0</option>
+    <option [ngValue]="50">50</option>
+    <option [ngValue]="75">75</option>
+    <option [ngValue]="100">100</option>
+    <option [ngValue]="150">150</option>
+    <option [ngValue]="200">200</option>
+  </select>
+</div>
 
 <dl>
   <dt>Amount Required</dt><dd>{{ubi.ubiCost / 1000000000 | number : '1.0-0'}} Billion</dd>

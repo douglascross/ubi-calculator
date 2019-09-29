@@ -16,7 +16,7 @@ export class WealthGraphicComponent implements OnInit {
   wealth3 = 0;
 
   constructor(public ubi: UbiService) {
-    const radiusWeight = 20;
+    const radiusWeight = 18;
     this.ubi.segments.subscribe(segments => {
       const sets = {};
       segments.forEach(seg => {

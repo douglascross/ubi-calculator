@@ -15,55 +15,51 @@ export class WealthSegmentsService {
 
   constructor() {
     this.segments = new BehaviorSubject([]);
-    this.segments.subscribe(x => this.segs = x);
+    this.segments.subscribe(x => {
+      this.segs = x;
+      x.forEach(segment => {
+        segment.calculators = {
+          quadratic: this.createSimplePolynomial(segment, 2),
+          cubic: this.createSimplePolynomial(segment, 3),
+          polynomial4: this.createSimplePolynomial(segment, 4),
+          polynomial5: this.createSimplePolynomial(segment, 5),
+          exponential: this.createSimpleExponential(segment)
+        };;
+      });
+    });
     this.processWealthSegmentsJson();
-    this.addSimpleQuadratic(3);
-    this.addSimpleExponential();
-    // ^2 = 485.427-499.285
-    // ^3 = 478.303-498.928
-    // ^5 = 464.375-498.215
-    // Math.E = 373.07-492.897
   }
 
-  getY(x) {
+  getY(x, calculator = 'cubic') {
     const segment = this.segs.find(seg => seg.x1 <= x && x <= seg.x2);
-    const index = this.segs.indexOf(segment);
     if (!segment) {
       return 0;
     }
-    return index >= 32 ? segment.simpleExponential(x) : segment.simpleQuadratic(x);
+    return segment.calculators[calculator](x);
   }
 
-  private addSimpleQuadratic(power = 3) {
-    this.segments.subscribe(segments => {
-      segments.forEach(segment => {
-        const startX = segment.cumulativeHouseholds - segment.households;
-        const c = segment.householdMin;
-        const y = segment.householdMax - c;
-        const xsr2 = Math.pow(segment.households, power);
-        const a = y / xsr2;
-        segment.simpleQuadratic = household => {
-          const x = household - startX;
-          return a * Math.pow(x, power) + c;
-        };
-      });
-    });
+  private createSimplePolynomial(segment, power = 3) {
+    const startX = segment.cumulativeHouseholds - segment.households;
+    const c = segment.householdMin;
+    const y = segment.householdMax - c;
+    const xsr2 = Math.pow(segment.households, power);
+    const a = y / xsr2;
+    return household => {
+      const x = household - startX;
+      return a * Math.pow(x, power) + c;
+    };
   }
 
-  private addSimpleExponential(exponent = Math.E) {
-    this.segments.subscribe(segments => {
-      segments.forEach(segment => {
-        const startX = segment.cumulativeHouseholds - segment.households;
-        const c = segment.householdMin;
-        const y = segment.householdMax - c;
-        const logy = Math.log(y) / Math.log(exponent);
-        const a = logy / segment.households;
-        segment.simpleExponential = household => {
-          const x = household - startX;
-          return Math.pow(Math.E, a * x) + c;
-        };
-      });
-    });
+  private createSimpleExponential(segment, exponent = Math.E) {
+    const startX = segment.cumulativeHouseholds - segment.households;
+    const c = segment.householdMin;
+    const y = segment.householdMax - c;
+    const logy = Math.log(y) / Math.log(exponent);
+    const a = logy / segment.households;
+    return household => {
+      const x = household - startX;
+      return Math.pow(Math.E, a * x) + c;
+    };
   }
 
   private async processWealthSegmentsJson() {

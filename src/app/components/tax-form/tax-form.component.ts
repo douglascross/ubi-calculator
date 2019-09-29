@@ -9,6 +9,7 @@ import { UbiService } from '../../services/ubi.service';
 export class TaxFormComponent implements OnInit {
 
   model = {
+    estimationModel: 'cubic',
     taxBracketStart: 1000000,
     taxBracketStep: 1000000,
     taxPercentStep: 1,
@@ -20,6 +21,7 @@ export class TaxFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.model.estimationModel = this.ubi.estimationModel;
     this.model.taxBracketStart = this.ubi.taxBracketStart;
     this.model.taxBracketStep = this.ubi.taxBracketStep;
     this.model.taxPercentStep = this.ubi.taxPercentStep;
