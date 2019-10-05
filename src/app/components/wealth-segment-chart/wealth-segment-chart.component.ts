@@ -106,7 +106,7 @@ export class WealthSegmentsChart {
       max(polyData, d => d[1].x)]
     );
     const yRange = this.yRange.domain(
-      [min(polyData, d => d[3].y - (d[1].y * 0.05)),
+      [min(polyData, d => d[3].y - (d[1].y * 0.4)),
       max(polyData, d => d[1].y)]
     );
 
@@ -146,7 +146,6 @@ export class WealthSegmentsChart {
       return;
     }
     this.initialised = !!data.length;
-
 
     var vis = this.vis = select('#' + this.id);
     this.xRange = scaleLinear().range([MARGINS.left, WIDTH - MARGINS.right]);

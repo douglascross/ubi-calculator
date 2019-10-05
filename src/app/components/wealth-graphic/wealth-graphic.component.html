@@ -7,6 +7,9 @@
       <badge [size]="wealth1" icon="cash"></badge>
     </div>
     <wealth-segment-chart></wealth-segment-chart>
+    <dl>
+      <div><dt>Taxed</dt><dd>{{taxed1 ? (taxed1 | number : '1.0-2') + '%' : 'zero'}}</dd></div>
+    </dl>
   </div>
 </div>
 <div class="set">
@@ -18,6 +21,9 @@
         <badge [size]="wealth2" icon="cash"></badge>
     </div>
     <wealth-segment-chart [chunk]="1"></wealth-segment-chart>
+    <dl>
+      <div><dt>Taxed</dt><dd>{{taxed2 ? (taxed2 | number : '1.0-2') + '%' : 'zero'}}</dd></div>
+    </dl>
   </div>
 </div>
 <div class="set">
@@ -29,5 +35,8 @@
         <badge [size]="wealth3" icon="cash"></badge>
     </div>
     <wealth-segment-chart [chunk]="0.1"></wealth-segment-chart>
+    <dl>
+      <div><dt>Taxed</dt><dd>{{taxed3 ? (taxed3 | number : '1.0-2') + '%' : 'zero'}}</dd></div>
+    </dl>
   </div>
 </div>

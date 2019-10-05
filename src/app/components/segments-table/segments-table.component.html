@@ -1,16 +1,16 @@
+<div class="table-container">
 <table>
   <tr>
-    <th>Name</th>
-    <th>Amount</th>
-    <th>Total</th>
-    <th>Top Rate</th>
-    <th>Rate</th>
+    <th>Bracket</th>
+    <th>Household Wealth</th>
+    <th>Taxed</th>
   </tr>
   <tr *ngFor="let segment of segments">
     <td>{{segment.name}}</td>
     <td>{{segment.y / 1000000 | number : '1.0-1'}} Million</td>
-    <td>{{segment.total / 1000000000 | number : '1.0-0'}} Billion</td>
-    <td>{{segment.rateReached ? (segment.rateReached | number : '1.0-0') + '%' : ''}}</td>
+    <!-- <td>{{segment.total / 1000000000 | number : '1.0-0'}} Billion</td> -->
+    <!-- <td>{{segment.rateReached ? (segment.rateReached | number : '1.0-0') + '%' : ''}}</td> -->
     <td>{{segment.rateFinal ? (segment.rateFinal | number : '1.0-2') + '%' : ''}}</td>
   </tr>
 </table>
+</div>

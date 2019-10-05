@@ -4,9 +4,11 @@
 
 .set {
   padding: 0.5rem;
-  border:1px solid lightgrey;
-  background-color: white;
+  border:1px solid #999;
+  background-color: #eee;
   margin: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
 }
 
 h3 {
@@ -25,12 +27,41 @@ h3 {
   top: 0;
   badge {
     float:left;
+    border: 2px solid white;
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .badges {
-    transform-origin: 0 0 ;
-    transform: scale(0.4);
+dl {
+  padding-top: 1px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1;
+  div {
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    border: 1px solid grey;
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    float: left;
+    overflow: hidden;
+    dt {
+      padding: 0.25rem 0.5rem 0.25rem 1rem;
+      background: #FBD012;
+      font-weight: 600;
+      border-right:1px solid rgba(0,0,0,0.25);
+    }
+    dd {
+      margin: 0;
+      padding: 0.25rem 1rem 0.25rem 0.5rem;
+      background: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  :host {
+    flex-direction: column;
   }
 }

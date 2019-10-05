@@ -153,7 +153,6 @@ export class UbiService {
       stepsTaken <= 50 && amount < target;
       stepsTaken += 1
     ) {
-      bracket += taxBracketStep * (stepsTaken - 1);
       this.taxSegments.forEach((segment, i) => {
         const qty = segment.qty || (households * (segment.chunk / 100));
         segment.qty = Math.round(qty);
@@ -165,6 +164,7 @@ export class UbiService {
           amount += taxTotal;
         }
       });
+      bracket += taxBracketStep;
     }
     this.totalTax = amount;
     this.taxSegments.forEach(x => {

@@ -15,12 +15,24 @@
   </div>
 
   <dl>
-    <dt>Households</dt><dd>{{ubi.households / 1000000 | number : '1.0-0'}} Million</dd>
-    <dt>Adults</dt><dd>{{ubi.adults / 1000000 | number : '1.0-0'}} Million</dd>
-    <dt>Children</dt><dd>{{ubi.children / 1000000 | number : '1.0-0'}} Million</dd>
-    <dt>Total Wealth</dt><dd>{{ubi.totalWealth / 1000000000000 | number : '1.0-0'}} Trillion</dd>
-    <dt>Average Household Wealth</dt><dd>{{ubi.averageWealth / 1000 | number : '1.0-0'}} Thousand</dd>
-    <dt>Median Household Wealth</dt><dd>{{ubi.medianWealth / 1000 | number : '1.0-0'}} Thousand</dd>
+    <div>
+      <dt>Households</dt><dd>{{ubi.households / 1000000 | number : '1.0-0'}} Million</dd>
+    </div>
+    <div>
+      <dt>Adults</dt><dd>{{ubi.adults / 1000000 | number : '1.0-0'}} Million</dd>
+    </div>
+    <div>
+      <dt>Children</dt><dd>{{ubi.children / 1000000 | number : '1.0-0'}} Million</dd>
+    </div>
+    <div>
+      <dt>Total Wealth</dt><dd>{{ubi.totalWealth / 1000000000000 | number : '1.0-0'}} Trillion</dd>
+    </div>
+    <div>
+      <dt>Average Household Wealth</dt><dd>{{ubi.averageWealth / 1000 | number : '1.0-0'}} Thousand</dd>
+    </div>
+    <div>
+      <dt>Median Household Wealth</dt><dd>{{ubi.medianWealth / 1000 | number : '1.0-0'}} Thousand</dd>
+    </div>
   </dl>
 
   </fieldset>
@@ -65,8 +77,12 @@
 </div>
 
 <dl>
-  <dt>Revenue Raised</dt><dd>{{ubi.totalTax / 1000000000 | number : '1.0-0'}} Billion</dd>
-  <dt>Percent Taxed</dt><dd>{{ubi.totalTax / ubi.totalWealth * 100 | number : '1.0-1'}}%</dd>
+  <div>
+    <dt>Revenue Raised</dt><dd>{{ubi.totalTax / 1000000000 | number : '1.0-0'}} Billion</dd>
+  </div>
+  <div>
+    <dt>Percent Taxed</dt><dd>{{ubi.totalTax / ubi.totalWealth * 100 | number : '1.0-1'}}%</dd>
+  </div>
 </dl>
 
 </fieldset>
@@ -106,7 +122,9 @@
 </div>
 
 <dl>
-  <dt>Amount Required</dt><dd>{{ubi.ubiCost / 1000000000 | number : '1.0-0'}} Billion</dd>
+  <div>
+    <dt>Amount Required</dt><dd>{{ubi.ubiCost / 1000000000 | number : '1.0-0'}} Billion</dd>
+  </div>
 </dl>
 
 </fieldset>
